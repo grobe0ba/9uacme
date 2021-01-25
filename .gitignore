@@ -10,3 +10,4 @@
 **/*.8
 **/*.out
 **/tags
+bin/**/uacme

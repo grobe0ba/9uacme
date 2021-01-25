@@ -46,7 +46,7 @@
 
 #if !defined(unix) && !defined(__unix__) && !defined(__unix) && \
     !defined(__APPLE__) && !defined(_WIN32) && !defined(__QNXNTO__) && \
-    !defined(__HAIKU__) && !defined(__midipix__)
+    !defined(__HAIKU__) && !defined(__midipix__) && !defined(__plan9__)
 #error "Platform entropy sources only work on Unix and Windows, see MBEDTLS_NO_PLATFORM_ENTROPY in config.h"
 #endif
 
@@ -179,7 +179,7 @@ int mbedtls_platform_entropy_poll( void *data,
 
     *olen = 0;
 
-    file = fopen( "/dev/urandom", "rb" );
+    file = fopen( "/dev/random", "rb" );
     if( file == NULL )
         return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
 
