@@ -1,0 +1,33 @@
+</$objtype/mkfile
+
+P9CFLAGS=$CFLAGS -I.
+P9CC=$CC
+
+CFLAGS=-I../include -DHAVE_CONFIG_H -I. '-DRUNSTATEDIR=""' '-DSYSCONFDIR="/sys/acme"' -D__plan9__ -D_PLAN9_SOURCE -D_POSIX_SOURCE -D_BSD_EXTENSION -c
+LIBS=../lib/$objtype/libcurl.a ../lib/$objtype/libmbedtls.a ../lib/$objtype/libmbedx509.a ../lib/$objtype/libmbedcrypto.a
+CC=pcc
+
+TARG=uacme
+BIN=../bin/$objtype
+
+OFILES=\
+	uacme.$O\
+	base64.$O\
+	crypto.$O\
+	curlwrap.$O\
+	json.$O\
+	msg.$O\
+	read-file.$O\
+	openbsd.$O\
+	plan9.$O\
+	getopt_long.$O
+
+default:V:      all
+
+plan9.$O: plan9.c
+	$P9CC $P9CFLAGS -o plan9.$O plan9.c
+
+</sys/src/cmd/mkone
+
+$O.out: $OFILES
+	pcc -o $O.out $OFILES $LIBS

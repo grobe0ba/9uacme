@@ -1,0 +1,83 @@
+</$objtype/mkfile
+
+LIB=../lib/$objtype/libmbedcrypto.a
+
+<mkfile.config
+
+<mkfile.includes
+
+
+OFILES=aes.$O\
+	aesni.$O\
+	arc4.$O\
+	aria.$O\
+	asn1parse.$O\
+	asn1write.$O\
+	base64.$O\
+	bignum.$O\
+	blowfish.$O\
+	camellia.$O\
+	ccm.$O\
+	chacha20.$O\
+	chachapoly.$O\
+	cipher.$O\
+	cipher_wrap.$O\
+	cmac.$O\
+	ctr_drbg.$O\
+	des.$O\
+	dhm.$O\
+	ecdh.$O\
+	ecdsa.$O\
+	ecjpake.$O\
+	ecp.$O\
+	ecp_curves.$O\
+	entropy.$O\
+	entropy_poll.$O\
+	error.$O\
+	gcm.$O\
+	havege.$O\
+	hkdf.$O\
+	hmac_drbg.$O\
+	md.$O\
+	md2.$O\
+	md4.$O\
+	md5.$O\
+	memory_buffer_alloc.$O\
+	nist_kw.$O\
+	oid.$O\
+	padlock.$O\
+	pem.$O\
+	pk.$O\
+	pk_wrap.$O\
+	pkcs12.$O\
+	pkcs5.$O\
+	pkparse.$O\
+	pkwrite.$O\
+	platform.$O\
+	platform_util.$O\
+	poly1305.$O\
+	psa_crypto.$O\
+	psa_crypto_driver_wrappers.$O\
+	psa_crypto_se.$O\
+	psa_crypto_slot_management.$O\
+	psa_crypto_storage.$O\
+	psa_its_file.$O\
+	ripemd160.$O\
+	rsa.$O\
+	rsa_internal.$O\
+	sha1.$O\
+	sha256.$O\
+	sha512.$O\
+	threading.$O\
+	timing.$O\
+	version.$O\
+	version_features.$O\
+	xtea.$O\
+	3rdparty/everest/library/everest.$O\
+	3rdparty/everest/library/x25519.$O\
+	3rdparty/everest/library/Hacl_Curve25519_joined.$O
+
+</sys/src/cmd/mksyslib
+
+%.$O: %.c
+	$CC $CFLAGS -o $target $stem.c

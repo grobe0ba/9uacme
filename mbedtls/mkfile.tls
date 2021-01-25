@@ -1,0 +1,23 @@
+</$objtype/mkfile
+
+LIB=../lib/$objtype/libmbedtls.a
+
+<mkfile.config
+
+OFILES=\
+	debug.$O\
+	net_sockets.$O\
+	ssl_cache.$O\
+	ssl_ciphersuites.$O\
+	ssl_cli.$O\
+	ssl_cookie.$O\
+	ssl_msg.$O\
+	ssl_srv.$O\
+	ssl_ticket.$O\
+	ssl_tls.$O\
+	ssl_tls13_keys.$O
+
+</sys/src/cmd/mksyslib
+
+%.$O: %.c
+	$CC $CFLAGS -o $target $stem.c

@@ -1,0 +1,20 @@
+</$objtype/mkfile
+
+LIB=../lib/$objtype/libmbedx509.a
+
+<mkfile.config
+
+OFILES=certs.$O\
+	pkcs11.$O\
+	x509.$O\
+	x509_create.$O\
+	x509_crl.$O\
+	x509_crt.$O\
+	x509_csr.$O\
+	x509write_crt.$O\
+	x509write_csr.$O
+
+</sys/src/cmd/mksyslib
+
+%.$O: %.c
+	$CC $CFLAGS -o $target $stem.c

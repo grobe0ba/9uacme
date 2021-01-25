@@ -1,0 +1,7 @@
+none:VQ:
+	echo usage: mk all, install, clean
+
+%:V:
+	mk -f mkfile.crypto $target
+	mk -f mkfile.x509 $target
+	mk -f mkfile.tls $target
