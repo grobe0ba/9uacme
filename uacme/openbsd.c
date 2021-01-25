@@ -100,29 +100,43 @@ warn(const char *fmt, ...)
 
 #define INITIAL_SIZE    128
 
-int vasprintf(char **s, char *format, va_list args) {
-	return vsprintf(*s, format, args);
+int vasprintf(char **str, char *fmt, va_list args) {
+	int ret;
+	char *buf;
+
+	if((buf = calloc(16384, sizeof(char))) == NULL) {
+		return -1;
+	}
+	
+	ret = vsprintf(buf, fmt, args);
+
+	if (ret == -1) {
+		free(buf);
+		return -1;
+	}
+	
+	if((*str = calloc(ret+1, sizeof(char))) == NULL) {
+		free(buf);
+		return -1;
+	}
+
+	memcpy(*str, buf, ret+1);
+
+	free(buf);
+	
+	return ret;
 }
 
 int
 asprintf(char **str, const char *fmt, ...)
 {
 	int ret;
-	char *buf;
 	va_list ap;
 
-	if((buf = calloc(16384, sizeof(char))) == NULL) {
-		return -1;
-	}
-	
 	va_start(ap, fmt);
-	ret = vasprintf(&buf, fmt, ap);
+	ret = vasprintf(str, fmt, ap);
 	va_end(ap);
-	if (ret == -1) {
-		free(buf);
-		return -1;
-	}
-	
+
 	return ret;
 }
 
