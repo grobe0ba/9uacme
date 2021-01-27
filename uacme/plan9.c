@@ -33,7 +33,7 @@ char *find_header(const char *headers, const char *name)
     char regex[512];
 	Reprog *reg;
 	Resub m[2];
-	char *ret;
+	char *ret = 0;
 
     if (snprintf(regex, 512, "^%s:[ \t]*(.*)\r\n", name) < 0) {
         warnx("find_header: asprintf failed");
