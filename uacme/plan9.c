@@ -30,31 +30,32 @@ typedef struct acme {
 
 char *find_header(const char *headers, const char *name)
 {
-    char regex[512];
+	char regex[512];
 	Reprog *reg;
-	Resub m[2];
+	Resub m[2] = { 0 };
 	char *ret = 0;
 
-    if (snprintf(regex, 512, "^%s:[ \t]*(.*)\r\n", name) < 0) {
+    if (snprintf(regex, 512, "^%s:[ \t]*(.*)$", name) < 0) {
         warnx("find_header: asprintf failed");
         return nil;
     }
-	
+
 	if((reg = regcomp(regex)) == nil) {
 		warnx("find_header: regcomp failed");
 	} else {
 		if(regexec(reg, headers, m, 2) == 1) {
-			if(! (ret = strndup(m[1].sp, m[1].ep - m[1].sp))) {
+			if(! (ret = strndup(m[1].sp, m[1].ep - m[1].sp - 1))) {
 				warnx("find_header: strndup failed");
 			}
 		}
 	}
 	free(reg);
+
 	return ret;
 }
 
 int eab_parse(acme_t *a, char *eab) {
-	Resub m[3];
+	Resub m[3] = { 0 };
 	Reprog *reg;
 
 	if((reg = regcomp("^([^:]+):([-_A-Za-z0-9]+)$")) == nil) {
@@ -67,10 +68,10 @@ int eab_parse(acme_t *a, char *eab) {
 		return 1;
 	}
 
-	m[1].ep = 0;
+	m[1].ep[0] = 0;
 	a->eab_keyid = m[1].sp;
 
-	m[2].ep = 0;
+	m[2].ep[0] = 0;
 	a->eab_key = m[2].sp;
 
 	return 1;

@@ -41,6 +41,17 @@
 #include <string.h>
 #include <sys/limits.h>
 
+size_t
+strnlen(const char *str, size_t maxlen)
+{
+        const char *cp;
+
+        for (cp = str; maxlen != 0 && *cp != '\0'; cp++, maxlen--)
+                ;
+
+        return (size_t)(cp - str);
+}
+
 char *
 strndup(const char *str, unsigned long maxlen)
 {
