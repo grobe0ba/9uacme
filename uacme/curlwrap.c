@@ -110,9 +110,10 @@ curldata_t *curl_get(const char *url)
             curl_easy_cleanup(curl);
             return NULL;
         }
-	struct curl_slist *doh_host = curl_slist_append(NULL, "doh.linuxsec.org:443:103.85.15.60");
+	
+	struct curl_slist *doh_host = curl_slist_append(NULL, "dns.google:443:8.8.8.8,8.8.4.4");
 	curl_easy_setopt(curl, CURLOPT_RESOLVE, doh_host);
-	curl_easy_setopt(curl, CURLOPT_DOH_URL, "https://doh.linuxsec.org/dns-query");
+	curl_easy_setopt(curl, CURLOPT_DOH_URL, "https://dns.google/dns-query");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_wcb);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, c);
@@ -162,9 +163,9 @@ curldata_t *curl_post(const char *url, void *post_data, size_t post_size,
             curl_easy_cleanup(curl);
             return NULL;
         }
-	struct curl_slist *doh_host = curl_slist_append(NULL, "doh.linuxsec.org:443:103.85.15.60");
+	struct curl_slist *doh_host = curl_slist_append(NULL, "dns.google:443:8.8.8.8,8.8.4.4");
 	curl_easy_setopt(curl, CURLOPT_RESOLVE, doh_host);
-	curl_easy_setopt(curl, CURLOPT_DOH_URL, "https://doh.linuxsec.org/dns-query");
+	curl_easy_setopt(curl, CURLOPT_DOH_URL, "https://dns.google/dns-query");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_wcb);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, c);
